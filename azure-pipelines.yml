@@ -19,4 +19,4 @@ steps:
 
 - script: dotnet nuget add source https://nuget.pkg.github.com/misinformeddna/index.json -n github
 
-- script: gpr push .\*.nupkg -k $(TOKEN)
+- script: ./bin/gpr push .\*.nupkg -k $(TOKEN)
