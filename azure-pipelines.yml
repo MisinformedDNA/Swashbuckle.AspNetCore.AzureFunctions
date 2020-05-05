@@ -1,0 +1,20 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: 'dotnet build $(buildConfiguration)'
+
+- script: dotnet pack --configuration $(buildConfiguration)
+
+- script: dotnet nuget add source https://nuget.pkg.github.com/misinformeddna/index.json -n github
+
+- script: dotnet tool install gpr -g
+
+- script: gpr push .\*.nupkg -k $(TOKEN)
