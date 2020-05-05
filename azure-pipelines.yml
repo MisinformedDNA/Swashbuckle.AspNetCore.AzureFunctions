@@ -15,4 +15,6 @@ steps:
 
 - script: dotnet tool install gpr --tool-path ./bin
 
+- pwsh: gci -Recurse
+
 - script: ./bin/gpr push ./*.nupkg -k $(TOKEN)
