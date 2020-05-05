@@ -17,6 +17,6 @@ steps:
 
 - pwsh: gci -Recurse
 
-- script: dotnet nuget add source https://nuget.pkg.github.com/misinformeddna/index.json -n github -u MisinformedDNA -p NOTSET
+- script: dotnet nuget add source https://nuget.pkg.github.com/misinformeddna/index.json -n github -u MisinformedDNA -p NOTSET --store-password-in-clear-text
 
 - script: ./bin/gpr push ./*.nupkg -k $(TOKEN)
