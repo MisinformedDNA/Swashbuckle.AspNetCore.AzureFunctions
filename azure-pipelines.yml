@@ -17,4 +17,4 @@ steps:
 
 - pwsh: gci -Recurse
 
-- script: ./bin/gpr push Swashbuckle.AspNetCore.AzureFunctions.1.1.1.nupkg -k $(TOKEN)
+- script: ./bin/gpr push Swashbuckle.AspNetCore.AzureFunctions.1.1.1.nupkg -k $(TOKEN) ---owner MisinformedDNA
