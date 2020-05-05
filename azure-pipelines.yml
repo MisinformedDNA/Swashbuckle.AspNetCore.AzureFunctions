@@ -13,7 +13,9 @@ steps:
 
 - script: dotnet pack --configuration $(buildConfiguration)
 
-- script: dotnet tool install gpr -g
+- script: dotnet tool install gpr --tool-path ./bin
+
+- script: dir /s
 
 - script: dotnet nuget add source https://nuget.pkg.github.com/misinformeddna/index.json -n github
 
