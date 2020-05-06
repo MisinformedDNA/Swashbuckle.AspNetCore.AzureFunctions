@@ -13,5 +13,5 @@ steps:
 - script: dotnet tool install gpr --tool-path ./bin
 
 - pwsh: |
-    $nupkg = (Get-ChildItem -Filter *.nupkg -Recurse).FullName[0]
+    $nupkg = (Get-ChildItem -Filter *.nupkg -Recurse).FullName
     ./bin/gpr push $nupkg -k $(TOKEN) --owner MisinformedDNA
