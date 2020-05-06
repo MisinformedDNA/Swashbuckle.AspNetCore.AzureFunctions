@@ -12,4 +12,6 @@ steps:
 
 - script: dotnet tool install gpr --tool-path ./bin
 
-- script: ./bin/gpr push Swashbuckle.AspNetCore.AzureFunctions.1.1.1.nupkg -k $(TOKEN) --owner MisinformedDNA
+- pwsh: |
+    $nupkg = (Get-ChildItem -Filter *.nupkg -Recurse).FullName[0]
+    ./bin/gpr push $nupkg -k $(TOKEN) --owner MisinformedDNA
