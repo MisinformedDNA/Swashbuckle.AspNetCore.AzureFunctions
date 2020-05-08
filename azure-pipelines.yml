@@ -8,14 +8,17 @@ variables:
   Patch: '0'
 steps:
 
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
 
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
   # condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master-new'))
   inputs:
-    command: pack
-    versioningScheme: byPrereleaseNumber
+    command: 'pack'
+    packagesToPack: '**/*.csproj'
+    nobuild: true
+    versioningScheme: 'byPrereleaseNumber'
     majorVersion: '$(Major)'
     minorVersion: '$(Minor)'
     patchVersion: '$(Patch)'
@@ -23,8 +26,16 @@ steps:
 - task: NuGetAuthenticate@0
   # condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master-new'))
 
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
   # condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master-new'))
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: '62df761f-09f5-47be-9f8f-ce7411233f5b/5e77ab61-9988-4ba5-9bb2-2979e706e09d'
+
+- task: NuGetCommand@2
+  condition: always()
   inputs:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
