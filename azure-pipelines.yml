@@ -12,7 +12,7 @@ steps:
   displayName: 'dotnet build $(buildConfiguration)'
 
 - task: NuGetCommand@2
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master-new'))
+  # condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master-new'))
   inputs:
     command: pack
     versioningScheme: byPrereleaseNumber
@@ -21,10 +21,10 @@ steps:
     patchVersion: '$(Patch)'
 
 - task: NuGetAuthenticate@0
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master-new'))
+  # condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master-new'))
 
 - task: NuGetCommand@2
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master-new'))
+  # condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master-new'))
   inputs:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
